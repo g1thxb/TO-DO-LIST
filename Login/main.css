@@ -1,0 +1,356 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #f9f9f9;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* 메인 전체 박스 */
+.main-container {
+  display: flex;
+  background-color: white;
+  width: 1100px;
+  height: 700px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+}
+
+/* 사이드바 */
+.sidebar {
+  background-color: #e6e6e6;
+  width: 230px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 40px 20px;
+  box-sizing: border-box;
+  border-right: 1px solid #ccc;
+}
+
+.sidebar h1 {
+  font-size: 28px;
+  font-weight: 700;
+  font-style: italic;
+  margin-bottom: 40px;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.profile .avatar {
+  width: 45px;
+  height: 45px;
+  background-color: black;
+  border-radius: 50%;
+  margin-right: 12px;
+}
+
+.profile .nickname {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  width: 100%;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+  font-weight: 700;
+  padding: 8px 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.nav-item:hover {
+  background-color: #d1d1d1;
+}
+
+.nav-item.active {
+  background-color: #bdbdbd;
+}
+
+/* 콘텐츠 구역 */
+.content {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: 2fr 1fr;
+  gap: 15px;
+  padding: 25px;
+  background-color: #666;
+  box-sizing: border-box;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  overflow: hidden;
+}
+
+.box {
+  background-color: #d9d9d9;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  font-weight: 700;
+  
+}
+
+/* 홈화면 기본 4칸 레이아웃 */
+.content.home {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: 2fr 1fr;
+  gap: 15px;
+  padding: 25px;
+  background-color: #666;
+}
+
+/* 단일 화면(캘린더 / 투두 / 습관)은 중앙 정렬 */
+.content.single {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #666;
+  padding: 25px;
+}
+
+/* 투두리스트 컨테이너 디자인 */
+.todo-container {
+  background-color: #d9d9d9;
+  border-radius: 15px;
+  padding: 30px;
+  width: 500px;
+  min-height: 400px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.todo-input {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.todo-input input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+}
+
+.todo-input button {
+  padding: 10px 16px;
+  border-radius: 10px;
+  background-color: #c2c2c2;
+  border: none;
+  cursor: pointer;
+}
+
+.todo-input button:hover {
+  background-color: #aaa;
+}
+
+#todoList {
+  list-style: none;
+  padding: 0;
+}
+
+#todoList li {
+  background: white;
+  margin-bottom: 8px;
+  padding: 10px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#todoList li.done {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+/* 기본 콘텐츠 공통 스타일 */
+.content {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #666;
+  padding: 30px;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+}
+
+
+/* 홈 화면용 (.home-active 클래스가 있을 때) */
+.content.home-active {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  align-items: stretch;
+}
+
+/* 기본 박스 스타일 */
+.box {
+  background-color: #d9d9d9;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  font-weight: 700;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+}
+
+/* 단일 화면(캘린더, 투두, 습관 등)은 화면 꽉 차게 */
+.content.single-active .box {
+  width: 100%;
+  height: 100%;
+}
+
+.todo-container {
+  background-color: #d9d9d9;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
+
+  width: 100%;
+  height: 100%;
+  overflow-y: auto; /* 내용이 많을 때 스크롤로 처리 */
+  
+}
+
+/* ⚙️ 설정 페이지 스타일 (꽉 찬 화면 레이아웃) */
+.settings-page {
+  /* .content의 크기를 꽉 채우기 위해 .box 스타일을 오버라이드합니다. */
+  background-color: white; /* 설정 페이지 배경색을 흰색으로 변경 */
+  box-sizing: border-box;
+
+  /* 내부 요소(아이콘, 메뉴)를 중앙에 배치하기 위한 flex 설정 */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* 가로 중앙 정렬 */
+  justify-content: center; /* 상단에서 시작 */
+  
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.panel-header {
+  margin-bottom: 20px; /* 상단 아이콘 아래 여백 증가 */
+}
+
+.menu-items {
+  width: 350px; /* 메뉴 항목의 최대 너비를 유지하여 중앙에 정렬되게 합니다. */
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  
+}
+
+/* 메뉴 버튼 스타일 (이전과 동일) */
+.menu-item {
+  width: 100%;
+  padding: 15px 20px;
+  background-color: #e5e5e5;
+  border: none;
+  border-radius: 15px; 
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.menu-item:hover {
+  background-color: #d1d1d1;
+}
+
+.menu-item.withdrawal {
+  margin-top: 10px;
+}
+
+.panel-footer {
+    /* 하단 화살표를 가장 아래에 배치하기 위해 margin-top을 사용합니다. */
+    margin-top: 30px; 
+}
+
+/* ⚙️ 설정 페이지 스타일 (일반 탭 전환 방식) */
+.settings-page {
+  /* .box의 기본 스타일을 따르되, 내부 컨텐츠 중앙 정렬 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0; /* 내부 패딩을 0으로 설정하고, .settings-content-wrapper에서 관리 */
+}
+
+/* 설정 내용 중앙 정렬을 위한 래퍼 */
+.settings-content-wrapper {
+  background-color: white; /* 설정 배경을 흰색으로 변경 */
+  width: 350px; 
+  padding: 40px 30px;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.panel-header {
+  margin-bottom: 30px;
+}
+
+.menu-items {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+/* 메뉴 버튼 스타일 (이미지의 회색 배경 버튼) */
+.menu-item {
+  width: 100%;
+  padding: 15px 20px;
+  background-color: #e5e5e5;
+  border: none;
+  border-radius: 15px; /* 이미지처럼 둥근 모서리 */
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.menu-item:hover {
+  background-color: #d1d1d1;
+}
+
+.menu-item.withdrawal {
+  margin-top: 10px;
+}
