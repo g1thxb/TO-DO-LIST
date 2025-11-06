@@ -1,5 +1,10 @@
+import { initCalendar, initCalendarHome, refreshCalendar } from './calendar.js'; // refreshCalendar import 확인
+import { initTodo, renderHomeTodoListOnly } from './todo.js'; 
+import { initHabitPage, renderHomeHabitList, renderHabitGraph } from './hobit.js';
+
+
 const content = document.querySelector('.content');
-const navItems = document.querySelectorAll('.nav-item');
+const navItems = document.querySelectorAll('.nav-item'); 
 
 navItems.forEach(item => {
   item.addEventListener('click', () => {
@@ -13,11 +18,44 @@ navItems.forEach(item => {
       content.classList.remove('single-active');
       content.classList.add('home-active');
       content.innerHTML = `
-        <div class="box"> 캘린더</div>
-        <div class="box"> 우선순위 높은 할 일 목록</div>
+        <div class="box home-calendar-box">
+          <div class="calendar-header-box">
+            <h2 id="currentMonthYearHome"></h2>
+            <div class="nav-group">
+              <button id="prevMonthHome" class="nav-button">‹</button>
+              <button id="nextMonthHome" class="nav-button">›</button>
+            </div>
+          </div>
+          <div class="calendar-days-header home-header">
+            <span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span>토</span><span>일</span>
+          </div>
+          <div class="calendar-dates home-dates" id="calendarDatesHome">
+            </div>
+        </div>
+        
+        <div class="box home-todo-list-box"> 
+            <h3> 오늘의 할 일</h3>
+            <ul id="todoListHome" class="todo-list-home">
+              </ul>
+        </div>
+
+        <div class="box habit-graph-box" id="habitGraph"> 
+            </div>
+        
+        <div class="box home-habit-list-box"> 
+            <h3> 오늘의 습관</h3>
+            <ul id="habitListHome" class="habit-list-home">
+                </ul>
+        </div>
+        
         <div class="box"> 습관 달성률 그래프</div>
         <div class="box"> 습관 목록</div>
       `;
+      // 함수 호출
+      initCalendarHome();
+      renderHomeTodoListOnly(); 
+      renderHabitGraph();
+      renderHomeHabitList();
     }
 
     // 📅 캘린더
@@ -25,28 +63,45 @@ navItems.forEach(item => {
       content.classList.remove('home-active');
       content.classList.add('single-active');
       content.innerHTML = `
-        <div class="box">
+        <div class="box calendar-page-box">
           <h2>📅 캘린더</h2>
-          <p>달력 UI</p>
+          <div class="calendar-header-box">
+            <h2 id="currentMonthYear"></h2>
+            <div class="nav-group">
+              <button id="prevMonth" class="nav-button">‹</button>
+              <button id="nextMonth" class="nav-button">›</button>
+            </div>
+          </div>
+          <div class="calendar-days-header">
+            <span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span>토</span><span>일</span>
+          </div>
+          <div class="calendar-dates" id="calendarDates">
+          </div>
         </div>
       `;
+      initCalendar();
     }
-
+    
     // 📝 투두
     if (text.includes('투두')) {
       content.classList.remove('home-active');
       content.classList.add('single-active');
       content.innerHTML = `
-        <div class="todo-container box">
-          <h2>📝 나의 투두리스트</h2>
-          <div class="todo-input">
-            <input type="text" id="todoInput" placeholder="할 일을 입력하세요" />
+        <div class="box todo-page-box">
+          <h2>📝 할 일 목록</h2>
+          <div class="date-select-group">
+              <label for="todoDateInput">날짜 선택:</label>
+              <input type="date" id="todoDateInput">
+          </div>
+          <div class="input-group">
+            <input type="text" id="todoInput" placeholder="새로운 할 일을 입력하세요" />
             <button id="addTodo">추가</button>
           </div>
-          <ul id="todoList"></ul>
+          <ul id="todoList" class="todo-list">
+            </ul>
         </div>
       `;
-      initTodo();
+      initTodo(); 
     }
 
     // 📈 습관
@@ -54,13 +109,21 @@ navItems.forEach(item => {
       content.classList.remove('home-active');
       content.classList.add('single-active');
       content.innerHTML = `
-        <div class="box">
+        <div class="box single-habit-page">
           <h2>📈 습관 관리</h2>
-          <p>차트 및 그래프</p>
+          <div class="input-group">
+            <input type="text" id="habitInput" placeholder="새로운 습관을 입력하세요" />
+            <button id="addHabit">추가</button>
+          </div>
+          <ul id="habitList" class="habit-list">
+            </ul>
         </div>
       `;
+      
+      initHabitPage(); 
     }
-    // ⚙️ 설정 (추가된 로직)
+
+    // ⚙️ 설정
     if (text.includes('설정')) {
       content.classList.remove('home-active');
       content.classList.add('single-active');
@@ -74,10 +137,8 @@ navItems.forEach(item => {
             <div class="menu-items">
               <button class="menu-item" data-tab="account">계정</button>
               <button class="menu-item" data-tab="notice">공지사항</button>
-              <button class="menu-item" data-tab="inquiry">문의사항</button>
-              <button class="menu-item" data-tab="version">버전</button>
-              <button class="menu-item withdrawal">탈퇴하기</button>
-            </div>
+              <button class="menu-item" data-tab="help">도움말</button>
+              <button class="menu-item" data-tab="logout">로그아웃</button>
             </div>
           </div>
         </div>
@@ -86,53 +147,6 @@ navItems.forEach(item => {
   });
 });
 
-// 투두리스트 기능
-function initTodo() {
-  const input = document.getElementById('todoInput');
-  const addBtn = document.getElementById('addTodo');
-  const list = document.getElementById('todoList');
-
-  let todos = JSON.parse(localStorage.getItem('todos')) || [];
-
-  function renderTodos() {
-    list.innerHTML = '';
-    todos.forEach((todo, i) => {
-      const li = document.createElement('li');
-      li.textContent = todo.text;
-      if (todo.done) li.classList.add('done');
-
-      li.addEventListener('click', () => {
-        todos[i].done = !todos[i].done;
-        saveTodos();
-      });
-
-      const delBtn = document.createElement('button');
-      delBtn.textContent = '❌';
-      delBtn.addEventListener('click', e => {
-        e.stopPropagation();
-        todos.splice(i, 1);
-        saveTodos();
-      });
-
-      li.appendChild(delBtn);
-      list.appendChild(li);
-    });
-  }
-
-  function saveTodos() {
-    localStorage.setItem('todos', JSON.stringify(todos));
-    renderTodos();
-  }
-
-  addBtn.addEventListener('click', () => {
-    if (!input.value.trim()) return;
-    todos.push({ text: input.value.trim(), done: false });
-    input.value = '';
-    saveTodos();
-  });
-
-  renderTodos();
-}
 
 // 페이지 로드 시 기본으로 홈 화면 표시
 window.addEventListener('DOMContentLoaded', () => {

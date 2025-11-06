@@ -187,6 +187,110 @@ body {
   opacity: 0.6;
 }
 
+/* --- 투두 리스트 스타일 --- */
+
+.todo-container h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.todo-input {
+    display: flex;
+    margin-bottom: 25px;
+    gap: 10px;
+}
+
+.todo-input input {
+    flex-grow: 1;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+.todo-input button {
+    padding: 12px 20px;
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+#todoList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.todo-item { /* li 태그에 사용할 클래스 */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 15px;
+    border-bottom: 1px solid #eee;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.todo-item:hover {
+    background-color: #f9f9f9;
+}
+
+.todo-item:last-child {
+    border-bottom: none;
+}
+
+/* 완료 상태 스타일 */
+.todo-item.done .todo-text {
+    color: #999;
+    text-decoration: line-through; /* 취소선 */
+}
+
+/* 체크박스 디자인 */
+.todo-checkbox {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    margin-right: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0; /* 크기 유지 */
+    transition: all 0.2s;
+}
+
+.todo-item.done .todo-checkbox {
+    background-color: black;
+    border-color: black;
+}
+
+.todo-item.done .todo-checkbox::after {
+    content: '✓'; /* 체크 표시 */
+    color: white;
+    font-size: 14px;
+    line-height: 1;
+}
+
+/* 삭제 버튼 */
+.todo-item button {
+    background: none;
+    border: none;
+    color: #ccc;
+    font-size: 18px;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: color 0.2s;
+}
+
+.todo-item button:hover {
+    color: #ff5555;
+}
+
 /* 기본 콘텐츠 공통 스타일 */
 .content {
   flex: 1;
@@ -353,4 +457,555 @@ body {
 
 .menu-item.withdrawal {
   margin-top: 10px;
+}
+
+/* 📅 캘린더 페이지 스타일 (이미지 기반) */
+.calendar-container {
+    /* ... (기존 캘린더 스타일 유지) ... */
+    background-color: white; 
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 30px;
+    box-sizing: border-box;
+    max-width: 800px; 
+    margin: 0 auto; 
+    height: 100%; 
+    width: 100%;
+    box-shadow: none; 
+}
+
+/* 달력 헤더 (월 이동 버튼과 현재 월 표시) */
+.calendar-header-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 0 5px;
+}
+
+.calendar-header-box h2 {
+    font-size: 28px;
+    font-weight: 700;
+    margin: 0;
+    letter-spacing: -1px;
+}
+
+.nav-group {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.nav-button {
+    background: #f0f0f0;
+    border: none;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    font-size: 20px;
+    font-weight: 700;
+    cursor: pointer;
+    color: #333;
+    line-height: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background 0.2s;
+}
+.nav-button:hover {
+    background: #e0e0e0;
+}
+
+.view-toggle-button {
+    background: #d9d9d9;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+/* 요일 헤더 (월화수목금토일) */
+.calendar-days-header {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    width: 100%;
+    text-align: center;
+    font-weight: 600;
+    color: #555;
+    padding-bottom: 15px;
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+.calendar-days-header span:nth-child(6) { color: blue; } /* 토요일 */
+.calendar-days-header span:nth-child(7) { color: red; } /* 일요일 */
+
+/* 날짜 그리드 */
+.calendar-dates {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    width: 100%;
+    gap: 6px; /* 날짜 셀 간격 */
+    flex-grow: 1;
+}
+
+.calendar-date-cell {
+    height: 75px; /* 셀 높이 */
+    background-color: #f5f5f5; /* 셀 배경색 */
+    border-radius: 10px;
+    padding: 8px;
+    text-align: right;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    box-sizing: border-box;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end; 
+    justify-content: space-between;
+    position: relative; 
+}
+
+.calendar-date-cell:hover:not(.empty) {
+    background-color: #ededed;
+}
+
+.calendar-date-cell.empty {
+    background-color: transparent;
+    cursor: default;
+    border: none;
+}
+
+/* 오늘 날짜 하이라이트 */
+.calendar-date-cell.today .date-number {
+    color: white;
+    background-color: black;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
+}
+
+.date-number {
+    align-self: flex-end; 
+}
+
+
+/* --- 홈 화면 캘린더 전용 스타일 --- */
+
+/* 홈 화면 캘린더 박스 */
+.home-calendar-box {
+    background-color: white; 
+    padding: 15px; 
+    justify-content: flex-start;
+    height: auto; /* 홈 화면 박스는 높이가 고정되지 않도록 */
+}
+
+/* 홈 화면 캘린더 헤더 (작은 크기) */
+.home-calendar-box .calendar-header-box {
+    margin-bottom: 10px;
+}
+
+.home-calendar-box .calendar-header-box h2 {
+    font-size: 20px; 
+}
+.home-calendar-box .nav-button {
+    width: 25px;
+    height: 25px;
+    font-size: 16px;
+}
+.home-calendar-box .nav-group {
+    gap: 5px;
+}
+
+/* 홈 화면 요일 헤더 */
+.home-header {
+    font-size: 12px;
+    padding-bottom: 5px;
+}
+
+/* 홈 화면 날짜 셀 (작은 크기) */
+.home-dates {
+    gap: 4px;
+}
+
+.home-cell {
+    height: 55px; /* 높이 축소 */
+    padding: 4px;
+    font-size: 14px;
+}
+
+/* --- 홈 화면 일간 리스트 뷰 스타일 (스크린샷 반영) --- */
+
+.daily-list-todo-box {
+    overflow-y: auto; /* 내용이 길어지면 스크롤 가능 */
+    max-height: 500px; /* 적당한 최대 높이 설정 */
+}
+
+/* 날짜 헤더 스타일 (예: 11월 6일 • 오늘 • 목요일) */
+.daily-header {
+    font-size: 14px;
+    font-weight: 600;
+    padding: 15px 0 5px 0;
+    border-bottom: 1px solid #f0f0f0;
+    color: #333;
+    display: flex;
+    align-items: center;
+}
+
+/* 오늘 날짜 표시 강조 (스크린샷의 빨간색 배경) */
+.daily-header .date-marker.today {
+    width: 8px;
+    height: 8px;
+    background-color: #e74c3c; /* 빨간색 */
+    border-radius: 50%;
+    margin-left: 10px;
+}
+
+/* 작업 추가 링크 스타일 */
+.add-task-link {
+    font-size: 13px;
+    color: #2ecc71; /* 초록색 */
+    margin: 10px 0 10px 0;
+    padding: 5px 0;
+    display: inline-block;
+}
+
+/* 투두 목록 스타일 */
+.daily-list-items {
+    list-style: none;
+    padding: 0;
+    margin: 5px 0;
+}
+
+/* 개별 투두 항목 */
+.daily-list-item {
+    font-size: 13px;
+    padding: 5px 0;
+    cursor: pointer;
+    border-bottom: 1px dotted #eee;
+}
+
+.daily-list-item.done {
+    text-decoration: line-through;
+    color: #aaa;
+}
+
+/* 입력 필드/버튼 컨테이너 */
+.add-task-container {
+    padding: 5px 0 15px 0;
+}
+
+.daily-list-input {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 12px;
+    width: 70%;
+    margin-right: 5px;
+}
+
+.add-task-container button {
+    padding: 5px 10px;
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+/* --- 투두 페이지 날짜 선택 그룹 스타일 --- */
+.date-select-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+.date-select-group label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+}
+
+#todoDateInput {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    font-family: inherit;
+    /* 날짜 선택 아이콘이 보이도록 기본 너비 유지 */
+}
+
+/* 홈 화면 투두 목록 스타일 (복원된 간결한 목록) */
+.home-todo-list-box {
+    height: 100%;
+    /* ... (기존 스타일 유지) */
+}
+
+.todo-list-home {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.todo-list-home .empty-message {
+    color: #999;
+    font-style: italic;
+    padding: 10px 0;
+}
+
+/* --- 📈 습관 페이지 스타일 --- */
+
+.habit-page-box h2 {
+    margin-bottom: 20px;
+}
+
+.habit-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.habit-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+    font-size: 14px;
+}
+
+.habit-item > span {
+    flex-grow: 1;
+    font-weight: 600;
+}
+
+.habit-check-container {
+    display: flex;
+    gap: 8px;
+    margin: 0 15px;
+    align-items: center;
+}
+
+.habit-check-container label {
+    font-size: 12px;
+    color: #555;
+    cursor: pointer;
+}
+
+.habit-check-container input[type="checkbox"] {
+    /* 기본 체크박스 스타일 재설정 */
+    width: 14px;
+    height: 14px;
+    margin: 0;
+    cursor: pointer;
+}
+
+.delete-habit-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 0 5px;
+    margin-left: 10px;
+}
+
+/* --- 🏠 홈 화면 습관 목록 스타일 --- */
+.home-habit-list-box h3 {
+    margin-top: 0;
+}
+
+.habit-list-home {
+    list-style: none;
+    padding: 0;
+    margin: 15px 0 0 0;
+}
+
+.habit-home-item {
+    display: flex;
+    align-items: center;
+    padding: 8px 0;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.habit-check-box {
+    width: 16px;
+    height: 16px;
+    border: 2px solid #3498db;
+    border-radius: 4px;
+    margin-right: 10px;
+    background-color: white;
+}
+
+.habit-home-item.done .habit-check-box {
+    background-color: #3498db;
+    position: relative;
+}
+
+.habit-home-item.done .habit-check-box::after {
+    content: '✓';
+    color: white;
+    font-size: 12px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.habit-home-item.done .habit-text {
+    text-decoration: line-through;
+    color: #aaa;
+}
+
+.habit-list-home .empty-message {
+    color: #999;
+    font-style: italic;
+    padding: 10px 0;
+    font-size: 14px;
+}
+
+/* --- 🏠 홈 화면 습관 달성률 그래프 스타일 --- */
+.habit-graph-box {
+    /* 홈 화면의 4개 박스 중 하나 */
+    background-color: white; 
+    padding: 20px; 
+}
+
+.habit-graph-box h3 {
+    margin-top: 0;
+    margin-bottom: 25px;
+    text-align: center;
+    font-size: 16px;
+}
+
+.habit-bar-chart {
+    display: flex;
+    justify-content: space-around; /* 바 사이 간격 확보 */
+    align-items: flex-end; /* 바가 바닥부터 올라오도록 정렬 */
+    height: 180px; /* 그래프 영역의 높이 확보 (충분한 공간) */
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.bar-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 10%;
+    height: 100%; /* 부모 높이 100% 사용 */
+    position: relative;
+    justify-content: flex-end; /* 그룹 내에서 바를 아래로 정렬 */
+}
+
+/* 그래프 바 스타일 */
+.bar {
+    width: 100%;
+    /* min-height를 줘야 0%일 때도 보이지 않도록 함 */
+    min-height: 2px; 
+    background-color: #3498db; 
+    border-radius: 4px 4px 0 0;
+    transition: height 0.5s ease;
+}
+
+/* 바 아래 요일 라벨 */
+.bar-label {
+    margin-top: 5px;
+    font-size: 11px;
+    color: #555;
+}
+
+.bar::after {
+    content: attr(data-label);
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 11px;
+    color: #333;
+    font-weight: 600;
+}
+
+.bar-label {
+    margin-top: 5px;
+    font-size: 12px;
+    color: #777;
+    font-weight: 500;
+}
+
+.bar-group.today-bar .bar {
+    background-color: #e74c3c; /* 오늘 날짜 막대 색상 강조 */
+}
+
+/* main.css에 추가 */
+
+/* 습관 관리 페이지 전체 박스 스타일 */
+.single-habit-page {
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+/* 입력 그룹 스타일 */
+.input-group {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+/* 습관 입력 필드 */
+#habitInput {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+/* 추가 버튼 */
+#addHabit {
+    padding: 10px 15px;
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* 습관 목록 */
+.habit-list {
+    list-style: none;
+    padding: 0;
+}
+
+/* 습관 항목 */
+.habit-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.habit-list li:last-child {
+    border-bottom: none;
 }
